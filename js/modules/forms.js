@@ -1,4 +1,6 @@
-function forms() {
+import { showModal, closeModal } from './modal';
+
+function forms(timerModal) {
 	const forms = document.querySelectorAll('form');
 
 	const message = {
@@ -46,7 +48,7 @@ function forms() {
 
 			postData('http://localhost:3000/requests', json)
 				.then(data => {
-					console.log(data);
+					// console.log(data);
 					showThanksModal(message.succes);
 					statusMessage.remove();
 				}).catch(() => {
@@ -61,7 +63,7 @@ function forms() {
 		const prevModalDialog = document.querySelector('.modal__dialog');
 
 		prevModalDialog.classList.add('hide');
-		showModal();
+		showModal('.modal', timerModal);
 
 		const thanksModal = document.createElement('div');
 		thanksModal.classList.add('modal__dialog');
@@ -77,7 +79,7 @@ function forms() {
 			thanksModal.remove();
 			prevModalDialog.classList.add('show');
 			prevModalDialog.classList.remove('hide');
-			closeModal();
+			closeModal('.modal');
 		}, 4000);
 	}
 }

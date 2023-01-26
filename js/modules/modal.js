@@ -1,42 +1,49 @@
-function modal() {
-	const modal = document.querySelector('.modal'),
-		btnModal = document.querySelectorAll('[data-modal]');
+function closeModal(modalSelector) {
+	const modal = document.querySelector(modalSelector);
+	modal.classList.add('hide');
+	modal.classList.remove('show');
+	document.body.style.overflow = '';
+}
 
+function showModal(modalSelector, timerModal) {
+	const modal = document.querySelector(modalSelector);
+	modal.classList.add('show');
+	modal.classList.remove('hide');
+	document.body.style.overflow = 'hidden';
+	clearTimeout(timerModal);
 
-	function showModal() {
-		modal.classList.add('show');
-		modal.classList.remove('hide');
-		document.body.style.overflow = 'hidden';
-		clearTimeout(timerModal);
+	console.log(timerModal);
+	if (timerModal) {
+		clearInterval(timerModal);
 	}
-	const timerModal = setTimeout(showModal, 50000);
+}
+
+function modal(triggerSelector, modalSelector, timerModal) {
+	const modal = document.querySelector(modalSelector),
+		btnModal = document.querySelectorAll(triggerSelector);
 
 
-	function closeModal() {
-		modal.classList.add('hide');
-		modal.classList.remove('show');
-		document.body.style.overflow = '';
-	}
+
 
 	btnModal.forEach(btn => {
-		btn.addEventListener('click', showModal);
+		btn.addEventListener('click', () => showModal(modalSelector, timerModal));
 	});
 
 	modal.addEventListener('click', (event) => {
 		if (event.target === modal || event.target.getAttribute('data-close') == '') {
-			closeModal();
+			closeModal(modalSelector);
 		}
 	});
 
 	document.addEventListener('keydown', (event) => {
 		if (event.code === 'Escape' && modal.classList.remove('show')) {
-			closeModal();
+			closeModal(modalSelector);
 		}
 	});
 
 	function showModalByScroll() {
 		if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
-			showModal();
+			showModal(modalSelector, timerModal);
 			window.removeEventListener('scroll', showModalByScroll);
 		}
 	}
@@ -45,3 +52,5 @@ function modal() {
 }
 
 export default modal;
+export { showModal };
+export { closeModal };

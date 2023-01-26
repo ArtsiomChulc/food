@@ -1,4 +1,4 @@
-function calc() {
+function calculat() {
 	const result = document.querySelector('.calculating__result span');
 	let sex, height, weight, age, ratio = 1.2;
 	if (localStorage.getItem('sex')) {
@@ -106,5 +106,5 @@ function calc() {
 	getDynamicInfo('#age');
 
 }
-
-module.exports = calc;
+module.exports = calculat;
+// export default calculat;

@@ -1,24 +1,38 @@
+require('es6-promise').polyfill();
+import 'nodelist-foreach-polyfill';
+
 import tabs from './modules/tabs';
 import modal from './modules/modal';
 import cards from './modules/cards';
-import calc from './modules/calc';
+import calculat from './modules/calculat';
 import forms from './modules/forms';
 import slider from './modules/slider';
 import timer from './modules/timer';
+import { showModal } from './modules/modal';
 
 
 window.addEventListener('DOMContentLoaded', () => {
 
-
-	const calc = require('./modules/calc');
+	const timerModal = setTimeout(() => showModal('.modal', timerModal), 500000);
+	// const calc = require('./modules/calc');
 
 	tabs();
-	slider();
-	modal();
+	slider({
+		container: '.offer__slider',
+		slide: '.offer__slide',
+		nextArrow: '.offer__slider-next',
+		prevArrow: '.offer__slider-prev',
+		totalCounter: '#total',
+		currentCounter: '#current',
+		wrapper: '.offer__slider-wrapper',
+		field: '.offer__slider-inner',
+
+	});
+	modal('[data-modal]', '.modal', timerModal);
 	timer();
-	forms();
+	forms(timerModal);
 	cards();
-	calc();
+	calculat();
 
 
 
